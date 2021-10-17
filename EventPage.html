@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- snapchat -->
+    <meta property="og:site_name" content="letvice" />
+
+    <meta property="og:title" content="snap events" />
+
+    <!-- The following are optional -->
+
+    <meta property="snap:sticker" content="http://letvice.skordisk.in.rs/images/snap.png" />
+
+    <meta property="snap:app_id" content="6f40af4f-a900-4ef4-8a0c-e0ca6318eb4b" />
+    <meta property="snap:publisher_id" content="92308228-fa84-4ab9-91b4-f025e380cd36" />
+
+    <!-- end snapchat -->
+
+    <title>Snap Events</title>
+
+    <style>
+        body{
+            background-color: yellow;
+        }
+
+        main{
+            margin-top: 30px;
+        }
+
+        .round{
+            border-radius:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main role="main">
+        <div class="album mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-4 box-shadow round mt-3">
+                            
+                            <div class="card-body text-center">
+                                <form class="form-signin mt-3 mb-5">
+                                    <img class="mb-4 mt-2"
+                                        src="snap.jpg" alt=""
+                                        width="90%" height="90%">
+                                    <!-- <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1> -->
+                                    <div class="px-3">
+                                        <!-- <label for="inputEmail" class="sr-only">Events name</label>
+                                        <input type="email" id="inputEmail" class="form-control" placeholder="Events name" required autofocus> -->
+                                        <h1>
+                                            Dany's party
+                                        </h1>
+
+                                        <br>
+
+                                        <p style="text-align: left; margin-left: 50px;">
+                                            Time: 8.00 - 12.00, 15. october 2021.
+                                        </p>
+
+                                        <br>
+
+                                        <p>
+                                            fdasfdas fdasfadsfadf fdasfdasfdsa fdasfdasfdsafasdf
+                                            fdasfdas fdasfdas fdasfadsfadf fdasfdasfdsa fdasfdasfdsafasdf
+                                            fdasfdas fdasfadsfadf fdasfdasfdsa fdasfdasfdsafasdf
+                                            fdasfdas fdasfadsfadf fdasfdasfdsa fdasfdasfdsafasdf
+                                        </p>
+                                        <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
+                                        <p class="mt-5 mb-3 text-muted"></p>
+                                        <div class="snapchat-creative-kit-share"></div>
+                                    </div>
+                                    
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+        <script>
+
+            // Load the SDK asynchronously
+        
+            (function (d, s, id) {
+        
+              var js,
+        
+                sjs = d.getElementsByTagName(s)[0];
+        
+              if (d.getElementById(id)) return;
+        
+              js = d.createElement(s);
+        
+              js.id = id;
+        
+              js.src = "https://sdk.snapkit.com/js/v1/create.js";
+        
+              sjs.parentNode.insertBefore(js, sjs);
+        
+            })(document, "script", "snapkit-creative-kit-sdk");
+        
+          </script>
+
+</body>
+
+</html>
