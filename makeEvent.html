@@ -39,11 +39,10 @@
         }
 
     </style>
-
 </head>
 
 <body>
-
+    <script src="./nikola.js"></script>
     <main role="main">
         <div class="album mt-1">
             <div class="container">
@@ -62,12 +61,12 @@
                                         width="90%" height="90%">
                                     <!-- <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1> -->
                                     <div class="px-3">
-                                        <label for="inputEmail" class="sr-only">Events name</label>
-                                        <input type="email" id="inputEmail" class="form-control" placeholder="Events name" required autofocus>
-                                        <label for="inputEmail" class="sr-only">Events time</label>
-                                        <input type="email" id="inputEmail" class="form-control mt-3" placeholder="Events time" required autofocus>
-                                        <label for="inputEmail" class="sr-only">Description</label>
-                                        <input type="email" id="inputEmail" class="form-control mt-3" placeholder="Description" required autofocus>
+                                        <label for="inputEmail" class="sr-only">Event name</label>
+                                        <input type="text" id="inputEventName" class="form-control" placeholder="Event name" required autofocus> 
+                                        <label for="inputEmail" class="sr-only">Event time</label>
+                                        <input type="text" id="inputEventTime" class="form-control mt-3" placeholder="Event time" required autofocus>
+                                        <label for="inputEmail" class="sr-only">Event</label>
+                                        <input type="text" id="inputEventDescription" class="form-control mt-3" placeholder="Description" required autofocus>
                                         <div class="input-group rounded mt-3">
                                             <div class="col-6">
                                                 <p class="mt-3">
@@ -79,7 +78,7 @@
                                                 <button class="btn btn-md btn-dark btn-block mt-2" type="submit">Upload</button>
                                             </div>
                                         </div>
-                                        <button class="btn btn-lg btn-dark btn-block mt-3" type="submit">Make an event!</button>
+                                        <button class="btn btn-lg btn-dark btn-block mt-3" type="submit" onclick="getEventInfo()">Make an event!</button>
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="snapchat-creative-kit-share"></div>
                                     </div>
@@ -131,7 +130,6 @@
             })(document, "script", "snapkit-creative-kit-sdk");
         
           </script>
-
 </body>
 
 </html>
