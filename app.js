@@ -1,24 +1,24 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+
 
 mongoose.connect("mongodb://127.0.0.1:27017/Events", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
-const eventRoutes = require('./routes/event'); // !!!!!!!!!!!!!!!!
+const eventRoutes = require('./routes/event');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-app.use(urlencoded({extended: false})); // bodyparser.urlencoded
+app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/event', eventRoutes); // !!!!!!!!!!!!!!!
+app.use('/event', eventRoutes);
 
 
 app.use(function (req, res, next) {

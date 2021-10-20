@@ -25,41 +25,14 @@ const eventSchema = mongoose.Schema({
 
 const eventModel = mongoose.model("Event", eventSchema);
 
-// module.exports.nadjiDostupneArtikle = async function(){
 
-//     const dostupniArtikli = await artikalModel.find({
-//         broj_artikala : {$gt: 0}
-//     }).exec();
-//     if(dostupniArtikli.length == 0)
-//     {
-//         return null;
-//     }
-
-//     return dostupniArtikli;
-// }
-
-// Funkcija za azuriranje baze podataka
-// module.exports.azurirajBrArtikalaUBP = async function(postId, postBrArtikala)
-// {
-//     let trazeniArtikal = await artikalModel.findOne({
-//         _id: postId,
-//     }).exec();
-//     let noviBrArtikala =  trazeniArtikal.broj_artikala - postBrArtikala;
-//     await artikalModel.updateOne({_id: postId} , {$set: {broj_artikala: noviBrArtikala}}).exec();
-// }
-
-
-// module.exports.dohvatiBrojArtikala = async function(postId, postBrojArtikala)
-// {
-//     const brojDostupnihArtikala = await artikalModel.findOne({
-
-//             _id: postId,
-      
-//     }).exec();
-
-//     if(brojDostupnihArtikala == null)
-//     {
-//         return false;
-//     }
-//     return true;
-// }
+module.exports.addEvent = async function(postEventName, postEventTime, postEventDescription)
+{
+    let newEvent = new eventModel();
+    newEvent._id = new mongoose.Types.ObjectId();
+    newEvent.eventName = postEventName;
+    newEvent.eventTime = postEventTime;
+    newEvent.eventDescription = postEventDescription;
+    // Fali drugo vreme/datum i slika ovde
+    await newEvent.save();
+}
