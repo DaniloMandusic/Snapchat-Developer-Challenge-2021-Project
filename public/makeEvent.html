@@ -55,18 +55,18 @@
                         <div class="card mb-4 box-shadow round">
                             
                             <div class="card-body text-center">
-                                <form class="form-signin mt-3 mb-5">
+                                <form class="form-signin mt-3 mb-5" method="POST" action="/event" enctype="multipart/form-data">
                                     <img class="mb-4 mt-2"
                                         src="snap.jpg" alt=""
                                         width="90%" height="90%">
                                     <!-- <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1> -->
                                     <div class="px-3">
                                         <label for="inputEmail" class="sr-only">Event name</label>
-                                        <input type="text" id="inputEventName" class="form-control" placeholder="Event name" required autofocus> 
+                                        <input type="text" name="inputEventName" id="inputEventName" class="form-control" placeholder="Event name" required autofocus> 
                                         <label for="inputEmail" class="sr-only">Event time</label>
-                                        <input type="text" id="inputEventTime" class="form-control mt-3" placeholder="Event time" required autofocus>
+                                        <input type="text" name="inputEventTime" id="inputEventTime" class="form-control mt-3" placeholder="Event time" required autofocus>
                                         <label for="inputEmail" class="sr-only">Event</label>
-                                        <input type="text" id="inputEventDescription" class="form-control mt-3" placeholder="Description" required autofocus>
+                                        <input type="text" name="inputEventDescription" id="inputEventDescription" class="form-control mt-3" placeholder="Description" required autofocus>
                                         <div class="input-group rounded mt-3">
                                             <div class="col-6">
                                                 <p class="mt-3">
@@ -75,7 +75,8 @@
                                             </div>
                                             
                                             <div class="col-6">
-                                                <button class="btn btn-md btn-dark btn-block mt-2" type="submit">Upload</button>
+                                                <input type="file" id="realBtn" name="image" hidden="hidden">
+                                                <button id="customBtn" class="btn btn-md btn-dark btn-block mt-2" type="button">Upload</input>
                                             </div>
                                         </div>
                                         <button class="btn btn-lg btn-dark btn-block mt-3" type="submit" onclick="getEventInfo()">Make an event!</button>
@@ -109,6 +110,13 @@
 
         <script>
 
+            //Upload button 
+            const realBtn = document.getElementById('realBtn');
+            const customBtn = document.getElementById("customBtn");
+            
+            customBtn.addEventListener('click', () => {
+                realBtn.click();
+            });
             // Load the SDK asynchronously
         
             (function (d, s, id) {

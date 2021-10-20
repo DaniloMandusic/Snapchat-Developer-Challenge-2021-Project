@@ -7,7 +7,7 @@ Event{
     Image: .img
 }
 */
-const eventSchema = mongoose.Schema({
+const eventSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     eventName: {
         type: String,

@@ -1,9 +1,15 @@
 const model = require('../models/event');
 
-// module.exports.prikaziDostupneArtikle = async function(req, res, next)
-// {
-//     let dostupniArtikli = await model.nadjiDostupneArtikle();
-//     res.render("prikaziProdavnicu.ejs", {
-//         dostupniArtikli: dostupniArtikli
-//     });
-// }
+async function getEventInfo(req, res, next) {
+    try {
+        let name = req.body.inputEventName.trim();
+        let time = req.body.inputEventTime.trim();      
+        let description = req.body.inputEventDescription.trim();
+        let image = req.file.filename;
+        await model.addEvent(name, time, description, image);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
