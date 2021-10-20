@@ -23,7 +23,7 @@ const eventSchema = mongoose.Schema({
     }
 }, {collection: "events"});
 
-const artikalModel = mongoose.model("Event", artikalSchema);
+const eventModel = mongoose.model("Event", eventSchema);
 
 // module.exports.nadjiDostupneArtikle = async function(){
 
