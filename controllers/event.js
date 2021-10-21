@@ -23,14 +23,9 @@ async function getEventInfo(req, res, next)
         eventDescription: postEventDescription,
         eventImage : postEventImage
     });
-
 }
 
 module.exports = {
     getEventInfo,
     showPage,
 };
-
-function papir(ekser){
-    let tralalala = 'ablahabla';
-}
