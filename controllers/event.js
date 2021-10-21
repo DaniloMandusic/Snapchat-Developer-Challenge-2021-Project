@@ -5,6 +5,11 @@ function showPage(req,res,next)
     res.render('makeEvent.ejs');
 }
 
+function papir(ekser)
+{
+    dlsajdlkasjdlkjas;
+}
+
 async function getEventInfo(req, res, next)
 {
     const postEventName = req.body.inputEventName; // inputEventName jer mora da bude isto kao atribut name u html-u 
@@ -17,17 +22,12 @@ async function getEventInfo(req, res, next)
     // Add event to the database
     await model.addEvent(postEventName, postEventTime, postEventDescription, postEventImage);
 
-    // Ovde ide res.render stranice EventPage.ejs sa ovim fajlovima, jedino sto pre
-    // toga treba da se zapisu ti podaci u bazi podataka
-
     res.render("eventPage.ejs", {
         eventName: postEventName,
         eventTime: postEventTime,
         eventDescription: postEventDescription,
         eventImage : postEventImage
     });
-    console.log(postEventName);
-
 }
 
 module.exports = {
