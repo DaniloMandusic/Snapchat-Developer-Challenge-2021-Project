@@ -31,7 +31,7 @@
         }
 
         main{
-            margin-top: 30px;
+            margin-top: 150px;
         }
 
         .round{
@@ -39,46 +39,49 @@
         }
 
     </style>
-
 </head>
 
 <body>
-
+    <!-- <script src="./nikola.js"></script> -->
     <main role="main">
-        <div class="album mt-5">
+        <div class="album mt-1">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
 
                     </div>
-                    <div class="col-md-8">
-                        <div class="card mb-4 box-shadow round mt-3">
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow round">
                             
                             <div class="card-body text-center">
-                                <form class="form-signin mt-3 mb-5">
+                                <form class="form-signin mt-3 mb-5" method="POST" action="/event/add" enctype="multipart/form-data">
                                     <img class="mb-4 mt-2"
                                         src="snap.jpg" alt=""
                                         width="90%" height="90%">
                                     <!-- <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1> -->
                                     <div class="px-3">
-                                        <!-- <label for="inputEmail" class="sr-only">Events name</label>
-                                        <input type="email" id="inputEmail" class="form-control" placeholder="Events name" required autofocus> -->
-                                        <h1>
-                                            <%= eventName %>
-                                        </h1>
-
-                                        <br>
-
-                                        <p style="text-align: left; margin-left: 50px;">
-                                            <%= eventTime %>
-                                        </p>
-
-                                        <br>
-
-                                        <p>
-                                            <%= eventDescription %>
-                                        </p>
-                                        <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
+                                        <label for="inputEmail" class="sr-only">Event name</label>
+                                        <input type="text" name="inputEventName" id="inputEventName" class="form-control" placeholder="Event name" required autofocus> 
+                                        
+                                        <label for="inputEmail" class="sr-only">Event time</label>
+                                        <input type="text" name="inputEventTime" id="inputEventTime" class="form-control mt-3" placeholder="Event time" required autofocus>
+                                        
+                                        <label for="inputEmail" class="sr-only">Event description</label>
+                                        <input type="text" name="inputEventDescription" id="inputEventDescription" class="form-control mt-3" placeholder="Description" required autofocus>
+                                        
+                                        <div class="input-group rounded mt-3">
+                                            <div class="col-6">
+                                                <p class="mt-3">
+                                                      Upload Photo:
+                                                </p>
+                                            </div>
+                                            
+                                            <div class="col-6">
+                                                <input type="file" id="realBtn" name="image" hidden="hidden">
+                                                <button id="customBtn" class="btn btn-md btn-dark btn-block mt-2" type="button">Upload</input>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-lg btn-dark btn-block mt-3" type="submit">Make an event!</button>
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="snapchat-creative-kit-share"></div>
                                     </div>
@@ -89,10 +92,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
 
                 </div>
             </div>
+        </div>
+        </div>
         </div>
 
     </main>
@@ -107,6 +112,13 @@
 
         <script>
 
+            //Upload button 
+            const realBtn = document.getElementById('realBtn');
+            const customBtn = document.getElementById("customBtn");
+            
+            customBtn.addEventListener('click', () => {
+                realBtn.click();
+            });
             // Load the SDK asynchronously
         
             (function (d, s, id) {
@@ -128,7 +140,6 @@
             })(document, "script", "snapkit-creative-kit-sdk");
         
           </script>
-
 </body>
 
 </html>

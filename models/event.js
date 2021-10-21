@@ -1,13 +1,5 @@
 const mongoose = require('mongoose');
-/*
-Event{
-    Name: string
-    Time: string
-    Description: string
-    Image: .img
-}
-*/
-const eventSchema = mongoose.Schema({
+const eventSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     eventName: {
         type: String,
@@ -19,20 +11,25 @@ const eventSchema = mongoose.Schema({
     },
     eventDescription: {
         type: String,
-        required: true,
+        required: true
+    },
+    eventImage: {
+        type: String,
+        required: true
     }
 }, {collection: "events"});
 
 const eventModel = mongoose.model("Event", eventSchema);
 
 
-module.exports.addEvent = async function(postEventName, postEventTime, postEventDescription)
+module.exports.addEvent = async function(postEventName, postEventTime, postEventDescription,postEventImage)
 {
     let newEvent = new eventModel();
     newEvent._id = new mongoose.Types.ObjectId();
     newEvent.eventName = postEventName;
     newEvent.eventTime = postEventTime;
     newEvent.eventDescription = postEventDescription;
+    newEvent.eventImage = postEventImage;
     // Fali drugo vreme/datum i slika ovde
     await newEvent.save();
 }
