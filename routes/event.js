@@ -1,13 +1,13 @@
 const express = require('express');
 
-const kontroler = require('../controllers/event');
+const controller = require('../controllers/event');
 const router = express.Router();
 const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination : function(req, file, cb)
     {
-        cb(null, '../Images');
+        cb(null, './images');
     },
     filename : function(req, file, cb)
     {
@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage : storage });
 
-router.post("/", upload('image') ,kontroler.prikaziDostupneArtikle);
+router.get('/',controller.showPage);
+router.post('/add',upload.single('image') , controller.getEventInfo);
 
 module.exports = router;

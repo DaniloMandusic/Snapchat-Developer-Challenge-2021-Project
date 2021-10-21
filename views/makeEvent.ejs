@@ -42,20 +42,19 @@
 </head>
 
 <body>
-    <script src="./nikola.js"></script>
+    <!-- <script src="./nikola.js"></script> -->
     <main role="main">
         <div class="album mt-1">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
 
-
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow round">
                             
                             <div class="card-body text-center">
-                                <form class="form-signin mt-3 mb-5" method="POST" action="/event" enctype="multipart/form-data">
+                                <form class="form-signin mt-3 mb-5" method="POST" action="/event/add" enctype="multipart/form-data">
                                     <img class="mb-4 mt-2"
                                         src="snap.jpg" alt=""
                                         width="90%" height="90%">
@@ -63,10 +62,13 @@
                                     <div class="px-3">
                                         <label for="inputEmail" class="sr-only">Event name</label>
                                         <input type="text" name="inputEventName" id="inputEventName" class="form-control" placeholder="Event name" required autofocus> 
+                                        
                                         <label for="inputEmail" class="sr-only">Event time</label>
                                         <input type="text" name="inputEventTime" id="inputEventTime" class="form-control mt-3" placeholder="Event time" required autofocus>
-                                        <label for="inputEmail" class="sr-only">Event</label>
+                                        
+                                        <label for="inputEmail" class="sr-only">Event description</label>
                                         <input type="text" name="inputEventDescription" id="inputEventDescription" class="form-control mt-3" placeholder="Description" required autofocus>
+                                        
                                         <div class="input-group rounded mt-3">
                                             <div class="col-6">
                                                 <p class="mt-3">
@@ -79,7 +81,7 @@
                                                 <button id="customBtn" class="btn btn-md btn-dark btn-block mt-2" type="button">Upload</input>
                                             </div>
                                         </div>
-                                        <button class="btn btn-lg btn-dark btn-block mt-3" type="submit" onclick="getEventInfo()">Make an event!</button>
+                                        <button class="btn btn-lg btn-dark btn-block mt-3" type="submit">Make an event!</button>
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="snapchat-creative-kit-share"></div>
                                     </div>
