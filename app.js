@@ -18,7 +18,7 @@ app.set('views', 'views');
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/event', eventRoutes);
+app.use('/', eventRoutes);
 
 
 app.use(function (req, res, next) {
