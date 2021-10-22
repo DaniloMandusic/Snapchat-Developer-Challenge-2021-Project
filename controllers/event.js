@@ -26,16 +26,17 @@ async function getEventInfo(req, res, next)
     {
         postEventTime = "Error: start date > end date.";
     }
-    else if(startTime > endTime)
-    {
-        postEventTime = "Error: start time > end time."
-    }
     else if(Date.parse(startDatetime.toLocaleDateString()) == Date.parse((endDatetime.toLocaleDateString())))
     {
+        // if(startTime > endTime)
+        // {
+        //     postEventTime = "Error: start time > end time."
+        // }
         postEventTime = `Event duration: ${startTime}h   -   ${endTime}h, ${startDate}`;
     }
     else postEventTime = `Event duration: ${startDate}, ${startTime}h   -    ${endTime}h, ${endDate}`;
 
+    
     const postEventDescription = req.body.inputEventDescription;
     const postEventImage = req.file.filename;
 
