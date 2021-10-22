@@ -17,7 +17,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage : storage });
 
-router.get('/',controller.showPage);
-router.post('/add',upload.single('image') , controller.getEventInfo);
+router.get('/', controller.showPage);
+router.post('/add', upload.single('image') , controller.getEventInfo);
+router.get('/:slug', controller.showEvent);
 
-module.exports = router;
+module.exports = router; 
