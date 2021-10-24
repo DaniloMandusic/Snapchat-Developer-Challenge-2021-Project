@@ -54,8 +54,12 @@ const eventModel = mongoose.model("Event", eventSchema);
     return eventFromDB;
 }
 
-async function findEventBySlug(eventSlug)
+async function findEventBySlug(slug)
 {
+    const eventSlug = slugify(slug, {
+        lower: true,
+        strict : true
+    });
     let event =  await eventModel.findOne({slug : eventSlug}).exec();
     return event;
 }
