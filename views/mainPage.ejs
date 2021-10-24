@@ -38,6 +38,19 @@
             border-radius:10px;
         }
 
+        /* search button */
+        button {
+            all: unset;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+        }
+        svg {
+            fill: currentColor;
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+        }
     </style>
 
 </head>
@@ -56,7 +69,7 @@
                         <div class="card mb-4 box-shadow round mt-3">
                             
                             <div class="card-body text-center">
-                                <form class="form-signin mt-3 mb-5">
+                                <form  class="form-signin mt-3 mb-5" method="POST" action="/search">
                                     <img class="mb-4 mt-2"
                                         src="snap.jpg" alt=""
                                         width="90%" height="90%">
@@ -65,13 +78,18 @@
                                         <!-- <label for="inputEmail" class="sr-only">Events name</label>
                                         <input type="email" id="inputEmail" class="form-control" placeholder="Events name" required autofocus> -->
                                         <div class="input-group rounded">
-                                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                            <input type="search" name="search"  class="form-control rounded" placeholder="Search" aria-label="Search"
                                             aria-describedby="search-addon" />
+                                            <!--OVDE TI JE ONA LUPA -->
+                                            <button type = "submit">
+                                                <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
+                                              </button>
+                                            <!--znaci ovo iznad -->
                                             <span class="input-group-text border-0" id="search-addon">
                                               <i class="fas fa-search"></i>
                                             </span>
                                           </div>
-                                        <button class="btn btn-lg btn-dark btn-block mt-5" type="submit">Host an event!</button>
+                                        <button class="btn btn-lg btn-dark btn-block mt-5" formaction="/event" type="submit">Host an event!</button>
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="snapchat-creative-kit-share"></div>
                                     </div>
