@@ -17,9 +17,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage : storage });
 
-router.get('/', controller.showPage);
-router.post('/add', upload.single('image'), controller.getEventInfo);
+router.get('/', controller.mainPage);
+router.post('/event', controller.makeEvent);
+router.post('/add', upload.single('image') , controller.getEventInfo);
+router.post('/search', controller.searchForEvent);
+router.get('/events/:slug', controller.showEvent);
 
-module.exports = router;
-
-// Ako se ne uradi upload trebalo bi izbaciti neku gresku i na sajt a ne samo default ono
+module.exports = router; 
