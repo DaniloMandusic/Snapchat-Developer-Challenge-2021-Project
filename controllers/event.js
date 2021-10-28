@@ -10,6 +10,10 @@ function makeEvent(req,res,next)
     res.render("makeEvent.ejs");
 }
 
+function showLogin(req, res, next)
+{
+    res.render("login.ejs");
+}
 
 
 async function getEventInfo(req, res, next)
@@ -77,4 +81,5 @@ module.exports = {
     mainPage,
     searchForEvent,
     makeEvent,
+    showLogin
 };

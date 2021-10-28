@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+    <div id="display_name">Welcome!</div>
+    <img id="bitmoji" />
+    <div id="external_id"></div>
+    <hr />
+    <div id="my-login-button-target"></div>
+
+    <script>
+
+      window.snapKitInit = function () {
+
+        var loginButtonIconId = "my-login-button-target";
+        var ime ="test";
+        // Mount Login Button
+        snap.loginkit.mountButton(loginButtonIconId, {
+
+          clientId: "92308228-fa84-4ab9-91b4-f025e380cd36",
+          redirectURI: "http://localhost:3000/",
+          scopeList: [  "https://auth.snapchat.com/oauth2/api/user.display_name",
+                        "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
+          ],
+          handleResponseCallback: function() {
+            snap.loginkit.fetchUserInfo().then(function(result) {
+              console.log("User info:", result.data.me);
+
+              nameValue = String(result.data.me.displayName);
+              ime = "callbacktest";
+              document.getElementById("display_name").innerHTML = "Welcome, " + nameValue + "!";
+              document.getElementById("bitmoji").src = result.data.me.bitmoji.avatar;
+              document.getElementById("external_id").src = result.data.me.externalId;
+            }, function(err) {
+              console.log(err);
+            });
+          },
+        });
+        console.log(ime);
+      };
+
+      
+
+      //     handleResponseCallback: function () {
+      //       console.log("Mica frfr");
+      //       snap.loginkit.fetchUserInfo().then(
+      //         function (result) {
+      //           console.log("User info:", result.data.me);
+      //           document.getElementById("display_name").innerHTML = result.data.me.displayName;
+      //           document.getElementById("bitmoji").src = result.data.me.bitmoji.avatar;
+      //           document.getElementById("external_id").src = result.data.me.externalId;
+      //         }, function (err) {
+      //           console.log(err); // Error
+      //         }
+      //       );
+      //     },
+      //   });
+      // };
+
+
+      // Load the SDK asynchronously
+      (function (d, s, id) {
+        var js, sjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://sdk.snapkit.com/js/v1/login.js";
+        sjs.parentNode.insertBefore(js, sjs);
+      })(document, "script", "loginkit-sdk");
+    </script>
+
+  </body>
+
+</html>
