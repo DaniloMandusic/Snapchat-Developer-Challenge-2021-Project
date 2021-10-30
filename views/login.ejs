@@ -12,7 +12,8 @@
     <script>
         window.snapKitInit = function () {
 
-          const dataRecived = (results) => {
+          function dataRecived (results) {
+            console.log(`RECIVED DATA: ${results.data}`);
             fetch("/test", {
                 method: 'POST',
                 mode: 'cors',
@@ -26,11 +27,14 @@
                 body: JSON.stringify({
                   userData: results.data.me
                 })
-              });
+              }).then(res => console.log(`FETCH RESULT: ${res}`))
+                .catch(err => console.log(`FETCH ERROR: ${err}`));
           };
 
-          const onButtonFinished = () => {
-            snap.loginkit.fetchUserInfo().then(dataRecived, (err) => console.log(err));
+          function onButtonFinished() {
+            console.log("ON_BUTTON_FINISHED");
+            const snapPromise = snap.loginkit.fetchUserInfo().then(dataRecived, (err) => console.log(err));
+            console.log(`SNAP.LOGINKIT.FETCHUSERINFO: ${snapPromise}`);
           };
 
           const buttonData = {
