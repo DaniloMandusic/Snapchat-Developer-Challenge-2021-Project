@@ -2,50 +2,50 @@
 <html lang="en">
   <body>
     <form method="POST" action="/test" >
-      <input type="text" name="display_name" id="display_name">
+      <input type="text" name="display_name" id="display_name" hidden="hidden">
       <img name="bitmoji" id="bitmoji" />
       <div name="external_id" id="external_id"></div>
       <hr />
       <div id="my-login-button-target"></div>
-      <input id="test_button" type="submit"> 
+      <input id="test_button" type="submit" hidden="hidden"> 
     </form>
     <script>
         window.snapKitInit = function () {
-  
-          var loginButtonIconId = "my-login-button-target";
+
+          const dataRecived = (results) => {
+            fetch("/test", {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({
+                  userData: results.data.me
+                })
+              });
+          };
+
+          const onButtonFinished = () => {
+            snap.loginkit.fetchUserInfo().then(dataRecived, (err) => console.log(err));
+          };
+
+          const buttonData = {
+            clientId: "92308228-fa84-4ab9-91b4-f025e380cd36",
+            redirectURI: "http://localhost:3000/login/", 
+            scopeList: [  "https://auth.snapchat.com/oauth2/api/user.display_name",
+                          "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
+            ],
+            handleResponseCallback: onButtonFinished,
+          };
           
           // Mount Login Button
-          snap.loginkit.mountButton(loginButtonIconId, {
-          
-          clientId: "92308228-fa84-4ab9-91b4-f025e380cd36",
-          redirectURI: "http://localhost:3000/login/", 
-          scopeList: [  "https://auth.snapchat.com/oauth2/api/user.display_name",
-                        "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
-          ],
-          handleResponseCallback:  function() {
-              snap.loginkit.fetchUserInfo().then(function(result) {
-              console.log("User info:", result.data.me);
-              
-              nameValue = String(result.data.me.displayName);
-              
-              // localStorage.setItem("displayName", nameValue);
-              // Ajax post localStorage content?
-                
-              document.getElementById("display_name").value = "Welcome, " + nameValue + "!";
-                
-              document.getElementById("bitmoji").src = result.data.me.bitmoji.avatar;
-              
-              console.log(document.getElementById("display_name"));
-              //  const testButton = document.getElementById("test_button");
-              //  testButton.click()
-              
-            }, function(err) {
-              console.log(err);
-            });
-          },
-          });
-          
-          };
+          snap.loginkit.mountButton("my-login-button-target", buttonData); // odavde na gore se pozivaju funkcije
+        
+        };
           
   
         // Load the SDK asynchronously

@@ -53,7 +53,7 @@ async function showEvent(req, res, next)
     }   
 }
 
-var globalEventName = "testGlobalna";
+let globalEventName = "testGlobalna"; // Moze na mnogo bolji nacin - ako vise od jednog korisnika koristi sajt ovo ce izazvati sranje
 async function searchForEvent(req, res, next)
 {
     try
@@ -85,14 +85,12 @@ function redirectLogin(req, res, next)
 {
     
     console.log("Sad smo u redirectLogin i globalna ima vrednost: " + globalEventName);
-    const displayName = req.body.display_name;
-    const bitmoji = req.body.bitmoji;
-    const externalId = req.body.external_id;
-    console.log("Display_name: " + displayName);
+    const {userData} = req.body; // Isto kao userData = req.body.userData; samo bogougodnije
+    console.log(`User data: ${userData}`);
     res.render("mainPage.ejs");
 }
 
-
+ // Treba povezati nalog sa eventom
 
 module.exports = {
     showEvent,
