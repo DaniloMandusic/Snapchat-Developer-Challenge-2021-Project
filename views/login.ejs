@@ -1,68 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <form method="POST" action="/test" >
-      <input type="text" name="display_name" id="display_name" hidden="hidden">
-      <img name="bitmoji" id="bitmoji" />
-      <div name="external_id" id="external_id"></div>
-      <hr />
-      <div id="my-login-button-target"></div>
-      <input id="test_button" type="submit" hidden="hidden"> 
-    </form>
+    <p id="results"></p>
+
+    <div id="my-login-button-target"></div>
+
     <script>
-        window.snapKitInit = function () {
+      const resPar = document.querySelector("#results");
 
-          function dataRecived (results) {
-            console.log(`RECIVED DATA: ${results.data}`);
-            fetch("/test", {
-                method: 'POST',
-                mode: 'cors',
-                cache: 'no-cache',
-                credentials: 'same-origin',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                redirect: 'follow',
-                referrerPolicy: 'no-referrer',
-                body: JSON.stringify({
-                  userData: results.data.me
+      window.snapKitInit = function () {
+        // Mount Login Button
+        snap.loginkit.mountButton("my-login-button-target", {
+          clientId: "92308228-fa84-4ab9-91b4-f025e380cd36",
+          redirectURI: "http://localhost:3000/login/",
+          scopeList: [  "https://auth.snapchat.com/oauth2/api/user.display_name",
+                        "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
+          ],
+          handleResponseCallback() {
+            snap.loginkit.fetchUserInfo().then(results => {
+
+              resPar.innerHTML = JSON.stringify(results);
+
+              fetch("/test", {
+                  method: 'POST',
+                  mode: 'cors',
+                  cache: 'no-cache',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  redirect: 'follow',
+                  referrerPolicy: 'no-referrer',
+                  body: JSON.stringify({
+                    userData: results.data.me
+                  })
                 })
-              }).then(res => console.log(`FETCH RESULT: ${res}`))
+                .then(res => console.log(`FETCH RESULT: ${res}`))
                 .catch(err => console.log(`FETCH ERROR: ${err}`));
-          };
 
-          function onButtonFinished() {
-            console.log("ON_BUTTON_FINISHED");
-            const snapPromise = snap.loginkit.fetchUserInfo().then(dataRecived, (err) => console.log(err));
-            console.log(`SNAP.LOGINKIT.FETCHUSERINFO: ${snapPromise}`);
-          };
+            }, err => console.log(err));
+          },
+        });
 
-          const buttonData = {
-            clientId: "92308228-fa84-4ab9-91b4-f025e380cd36",
-            redirectURI: "http://localhost:3000/login/", 
-            scopeList: [  "https://auth.snapchat.com/oauth2/api/user.display_name",
-                          "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
-            ],
-            handleResponseCallback: onButtonFinished,
-          };
-          
-          // Mount Login Button
-          snap.loginkit.mountButton("my-login-button-target", buttonData); // odavde na gore se pozivaju funkcije
-        
-        };
-          
+      };
   
-        // Load the SDK asynchronously
-        (function (d, s, id) {
-        var js, sjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://sdk.snapkit.com/js/v1/login.js";
-        sjs.parentNode.insertBefore(js, sjs);
-        })(document, "script", "loginkit-sdk");
-     </script>
-
+      // Load the SDK asynchronously
+      (function (d, s, id) {
+      var js, sjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://sdk.snapkit.com/js/v1/login.js";
+      sjs.parentNode.insertBefore(js, sjs);
+      })(document, "script", "loginkit-sdk");
+    </script>
   </body>
-
 </html>
