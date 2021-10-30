@@ -53,7 +53,7 @@ async function getEventInfo(req, res, next)
 async function showEvent(req, res, next)
 {
     try{
-        console.log('hello');
+        //console.log('hello');
         let event = await model.findEventBySlug(req.params.slug);
         res.render("eventPage.ejs", {
             eventName: event.eventName,
