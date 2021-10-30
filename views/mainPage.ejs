@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -71,7 +71,7 @@
                             <div class="card-body text-center">
                                 <form  class="form-signin mt-3 mb-5" method="POST" action="/search">
                                     <img class="mb-4 mt-2"
-                                        src="/snap.jpg" alt="snap"
+                                        src="snap.jpg" alt=""
                                         width="90%" height="90%">
                                     <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1>
                                     <div class="px-3">
@@ -80,11 +80,9 @@
                                         <div class="input-group rounded">
                                             <input type="search" name="search"  class="form-control rounded" placeholder="Search" aria-label="Search"
                                             aria-describedby="search-addon" />
-                                            <!--OVDE TI JE ONA LUPA -->
                                             <button type = "submit">
                                                 <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
                                               </button>
-                                            <!--znaci ovo iznad -->
                                             <span class="input-group-text border-0" id="search-addon">
                                               <i class="fas fa-search"></i>
                                             </span>
@@ -139,8 +137,13 @@
               sjs.parentNode.insertBefore(js, sjs);
         
             })(document, "script", "snapkit-creative-kit-sdk");
-        
-          </script>
+            
+            let hostBtn = document.getElementById("host");
+            hostBtn.addEventListener('click', () => {
+                console.log(document.getElementById("search").value);
+                console.log('click');
+            });
+        </script>
 
 </body>
 
