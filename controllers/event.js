@@ -53,12 +53,14 @@ async function showEvent(req, res, next)
     }   
 }
 
+var globalEventName = "testGlobalna";
 async function searchForEvent(req, res, next)
 {
     try
     {
-        const eventSlug = req.body.search;
-        const event = await model.findEventBySlug(eventSlug);
+        globalEventName = req.body.search;
+        const eventSlug = req.body.search; // nikolas party
+        const event = await model.findEventBySlug(eventSlug); 
         if(event != null)
         {
             res.redirect(`/events/${event.slug}`)
@@ -75,11 +77,29 @@ async function searchForEvent(req, res, next)
     }
 }
 
+// Treba u ovoj funkciji nekako doci do jedne od sledece dve stvari:
+    // 1. Linka koji se dobije nakon sto se searchuje event (primer: localhost:3000/events/danilosparty, sto je zapravo localhost:3000/events/:slug)
+    // 2. Samog imena eventa (npr. danilosparty)
+
+function redirectLogin(req, res, next)
+{
+    
+    console.log("Sad smo u redirectLogin i globalna ima vrednost: " + globalEventName);
+    const displayName = req.body.display_name;
+    const bitmoji = req.body.bitmoji;
+    const externalId = req.body.external_id;
+    console.log("Display_name: " + displayName);
+    res.render("mainPage.ejs");
+}
+
+
+
 module.exports = {
     showEvent,
     getEventInfo,
     mainPage,
     searchForEvent,
     makeEvent,
-    showLogin
+    showLogin,
+    redirectLogin
 };

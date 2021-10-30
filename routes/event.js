@@ -22,8 +22,9 @@ router.post('/event', controller.makeEvent);
 router.post('/add', upload.single('image') , controller.getEventInfo);
 router.post('/search', controller.searchForEvent);
 router.get('/events/:slug', controller.showEvent);
-
-
 router.get('/login', controller.showLogin);
+
+router.post("/test", controller.redirectLogin);
+
 
 module.exports = router; 

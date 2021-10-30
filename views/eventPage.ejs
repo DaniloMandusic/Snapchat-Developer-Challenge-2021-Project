@@ -55,7 +55,7 @@
                         <div class="card mb-4 box-shadow round mt-3">
                             
                             <div class="card-body text-center">
-                                <form class="form-signin mt-3 mb-5">
+                                <form class="form-signin mt-3 mb-5" method="GET" action="/login">
                                     <img class="mb-4 mt-2"
                                         src="/snap.jpg" alt="snap"
                                         width="90%" height="90%">
@@ -79,7 +79,9 @@
                                             <%= eventDescription %>
                                         </p>
                                         <img src="/images/<%= eventImage %>" alt="slika" class="card-img">
+                                        
                                         <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
+                                        
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="snapchat-creative-kit-share"></div>
                                     </div>
