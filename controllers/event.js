@@ -1,10 +1,14 @@
 const model = require('../models/event');
 
-function showPage(req,res,next)
+function mainPage(req,res,next)
 {
-    res.render('makeEvent.ejs');
+    res.render('mainPage.ejs');
 }
 
+function makeEvent(req,res,next)
+{
+    res.render("makeEvent.ejs");
+}
 async function getEventInfo(req, res, next)
 {
     try{
@@ -13,7 +17,7 @@ async function getEventInfo(req, res, next)
     let postEventEndTime = req.body.inputEventEndTime; // 2021-10-11T03:01
     let postEventTime = "";
     
-    // Date validation shenaningas
+    // Date validation shenaningas ///////////////////////////////////////////////////////////////
     let startDatetime = new Date(postEventStartTime);
     let endDatetime = new Date(postEventEndTime);
     startDatetime.setSeconds(0, 0); // Seconds and milliseconds are irrelevant for comparison
@@ -36,13 +40,13 @@ async function getEventInfo(req, res, next)
         postEventTime = `Event duration: ${startTime}h   -   ${endTime}h, ${startDate}`;
     }
     else postEventTime = `Event duration: ${startDate}, ${startTime}h   -    ${endTime}h, ${endDate}`;
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////
     const postEventDescription = req.body.inputEventDescription;
     const postEventImage = req.file.filename;
 
         // Add event to the database
         const eventFromDb = await model.addEvent(postEventName, postEventTime, postEventDescription, postEventImage);
-        res.redirect(`/event/${eventFromDb.slug}`);
+        res.redirect(`/events/${eventFromDb.slug}`);
     }
     catch(err)
     {
@@ -53,7 +57,7 @@ async function getEventInfo(req, res, next)
 async function showEvent(req, res, next)
 {
     try{
-        //console.log('hello');
+        
         let event = await model.findEventBySlug(req.params.slug);
         res.render("eventPage.ejs", {
             eventName: event.eventName,
@@ -68,8 +72,32 @@ async function showEvent(req, res, next)
     }   
 }
 
+async function searchForEvent(req, res, next)
+{
+    try
+    {
+        const eventSlug = req.body.search;
+        const event = await model.findEventBySlug(eventSlug);
+        if(event != null)
+        {
+            res.redirect(`/events/${event.slug}`)
+        }
+        else
+        {
+            res.render("makeEvent.ejs");
+        }
+        
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
+
 module.exports = {
     showEvent,
     getEventInfo,
-    showPage,
+    mainPage,
+    searchForEvent,
+    makeEvent,
 };
