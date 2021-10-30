@@ -22,7 +22,7 @@ app.use('/', eventRoutes);
 
 
 app.use(function (req, res, next) {
-    const err = new Error('Pokušali ste da učitate stranicu koja ne postoji: ' + req.url);
+    const err = new Error('Page doesn\'t exist: ' + req.url);
     err.status = 404;
 
     next(err);

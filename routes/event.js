@@ -23,4 +23,8 @@ router.post('/add', upload.single('image') , controller.getEventInfo);
 router.post('/search', controller.searchForEvent);
 router.get('/events/:slug', controller.showEvent);
 
+router.get('/authorize', controller.authorize);
+router.get('/sendAccesToken', controller.accesTokenHandler);
+router.get('/login', controller.showLogin);
+
 module.exports = router; 

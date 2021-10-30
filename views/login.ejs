@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+    <div id="display_name">Welcome!</div>
+    <img id="bitmoji" />
+    <div id="external_id"></div>
+    <hr />
+    <form method="GET" action="/authorize">
+        <div id="my-login-button-target"></div>
+  </form>
+    <script>
+
+      window.snapKitInit = function () {
+
+        var loginButtonIconId = "my-login-button-target";
+        // Mount Login Button
+        var loginParams = {
+          handleAuthGrantFlowCallback: function handleAuthGrantFlowCallback() {
+            console.log("hello");
+          },
+          clientId : "92308228-fa84-4ab9-91b4-f025e380cd36"
+        };
+
+        snap.loginkit.mountButton(loginButtonIconId, loginParams, acces_token);
+
+      };
+
+      // Load the SDK asynchronously
+      (function (d, s, id) {
+        var js, sjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://sdk.snapkit.com/js/v1/login.js";
+        sjs.parentNode.insertBefore(js, sjs);
+      })(document, "script", "loginkit-sdk");
+    </script>
+
+  </body>
+
+</html>

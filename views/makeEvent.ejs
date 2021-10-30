@@ -54,7 +54,7 @@
                         <div class="card mb-4 box-shadow round">
                             
                             <div class="card-body text-center">
-                                <form class="form-signin mt-3 mb-5" method="POST" action="/add" enctype="multipart/form-data">
+                                <form id="makeEventForm" class="form-signin mt-3 mb-5" method="POST" action="/add" enctype="multipart/form-data">
                                     <img class="mb-4 mt-2"
                                         src="snap.jpg" alt=""
                                         width="90%" height="90%">
@@ -69,6 +69,8 @@
                                         <label for="inputEmail" class="sr-only">Event end time</label>
                                         <input type="datetime-local" name="inputEventEndTime" id="inputEventEndTime" class="form-control mt-3" placeholder="Event end time" required autofocus>
                                         
+                                        <input type="text" name="eventTime" id="eventTime" hidden="hidden">
+
                                         <label for="inputEmail" class="sr-only">Event description</label>
                                         <input type="text" name="inputEventDescription" id="inputEventDescription" class="form-control mt-3" placeholder="Description" required autofocus>
                                         
@@ -143,6 +145,8 @@
             })(document, "script", "snapkit-creative-kit-sdk");
         
           </script>
+
+    <script src="/dateValidation.js"></script>
 </body>
 
 </html>

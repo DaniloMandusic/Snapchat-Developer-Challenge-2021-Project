@@ -1,4 +1,7 @@
 const model = require('../models/event');
+const cryptoLib = require('../crypto');
+const uriMaker = require('../uriMaker');
+const request = require('request');
 
 function mainPage(req,res,next)
 {
@@ -9,38 +12,19 @@ function makeEvent(req,res,next)
 {
     res.render("makeEvent.ejs");
 }
+
+function showLogin(req, res, next)
+{
+    res.render("login.ejs");
+}
+
+
 async function getEventInfo(req, res, next)
 {
     try{
     const postEventName = req.body.inputEventName;
-    let postEventStartTime = req.body.inputEventStartTime;
-    let postEventEndTime = req.body.inputEventEndTime; // 2021-10-11T03:01
-    let postEventTime = "";
+    const postEventTime = req.body.eventTime;
     
-    // Date validation shenaningas ///////////////////////////////////////////////////////////////
-    let startDatetime = new Date(postEventStartTime);
-    let endDatetime = new Date(postEventEndTime);
-    startDatetime.setSeconds(0, 0); // Seconds and milliseconds are irrelevant for comparison
-    endDatetime.setSeconds(0, 0);
-    const startDate = startDatetime.toLocaleDateString('de-DE');
-    const startTime = startDatetime.toLocaleTimeString(['de-DE'], {hour: '2-digit', minute:'2-digit'});
-    const endDate = endDatetime.toLocaleDateString('de-DE');
-    const endTime = endDatetime.toLocaleTimeString(['de-DE'], {hour: '2-digit', minute:'2-digit'}); 
-    
-    if(Date.parse(startDatetime.toLocaleDateString()) > Date.parse((endDatetime.toLocaleDateString()))) // Comparison in US format
-    {
-        postEventTime = "Error: start date > end date.";
-    }
-    else if(startTime > endTime)
-    {
-        postEventTime = "Error: start time > end time."
-    }
-    else if(Date.parse(startDatetime.toLocaleDateString()) == Date.parse((endDatetime.toLocaleDateString())))
-    {
-        postEventTime = `Event duration: ${startTime}h   -   ${endTime}h, ${startDate}`;
-    }
-    else postEventTime = `Event duration: ${startDate}, ${startTime}h   -    ${endTime}h, ${endDate}`;
-    //////////////////////////////////////////////////////////////////////////////////////////////////
     const postEventDescription = req.body.inputEventDescription;
     const postEventImage = req.file.filename;
 
@@ -94,10 +78,118 @@ async function searchForEvent(req, res, next)
     }
 }
 
+var clientId = "92308228-fa84-4ab9-91b4-f025e380cd36";
+
+var clientSecret = "GvuesZ9ZagFc0h_ID_1E8J8BKUu41BCVN2gLLglHkM0";
+
+var redirectUri = "http://localhost:3000/login/";
+
+var scopeList = [ 
+    "https://auth.snapchat.com/oauth2/api/user.display_name",
+    "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
+];
+
+function authorize(req, res, next)
+{
+// Generate query parameters
+
+var state = cryptoLib.generateClientState();
+
+
+// Build redirect URL
+
+var getRedirectURL = uriMakera.getAuthCodeRedirectURL(
+
+  clientId,
+
+  redirectUri,
+
+  scopeList,
+
+  state
+
+);
+
+
+// Redirect user to get consent
+
+res.redirect(getRedirectURL);
+}
+
+function accesTokenHandler(req, res ,next)
+{
+    var SNAPCHAT_AUTH_ENDPOINT =
+
+    "https://accounts.snapchat.com/accounts/oauth2/token";
+
+  var auth_code = "received-auth-code-xyz";
+
+
+  var authorizationHeader = clientId + ":" + clientSecret;
+
+  var authorizationHeaderBase64 = Buffer.from(authorizationHeader).toString(
+
+    "base64"
+
+  );
+
+
+  // Set headers
+
+  var headers = {
+
+    "Content-Type": "application/x-www-form-urlencoded",
+
+    Authorization: "Basic " + authorizationHeaderBase64,
+
+  };
+
+
+  // Configure access token POST request
+
+  var options = {
+
+    url: SNAPCHAT_AUTH_ENDPOINT,
+
+    method: "POST",
+
+    headers: headers,
+
+    form: {
+
+      grant_type: "authorization_code",
+
+      code: auth_code,
+
+      redirect_uri: redirectUri,
+
+      client_id: clientId,
+
+    },
+
+  };
+
+
+  // Start POST request
+
+  request(options, function (error, response, body) {
+
+    // Handle success and  error responses here
+    console.log("response " + response);
+    console.log("body : " + body);
+    // Make sure to persist access_token, refresh_token, and expires_in
+
+    res.send(response);
+
+  });
+}
+
 module.exports = {
     showEvent,
     getEventInfo,
     mainPage,
     searchForEvent,
     makeEvent,
+    showLogin,
+    authorize
 };
