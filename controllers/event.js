@@ -11,7 +11,7 @@ function makeEvent(req,res,next)
 }
 
 function showLogin(req, res, next)
-{
+{   
     res.render("login.ejs");
 }
 
@@ -45,6 +45,7 @@ async function showEvent(req, res, next)
             eventTime: event.eventTime,
             eventDescription: event.eventDescription,
             eventImage : event.eventImage,
+            eventParticipants : event.participants
         });
     }
     catch(err)
@@ -53,12 +54,13 @@ async function showEvent(req, res, next)
     }   
 }
 
+
 async function searchForEvent(req, res, next)
 {
     try
     {
-        const eventSlug = req.body.search;
-        const event = await model.findEventBySlug(eventSlug);
+        const eventSlug = req.body.search; // nikolas party
+        const event = await model.findEventBySlug(eventSlug); 
         if(event != null)
         {
             res.redirect(`/events/${event.slug}`)
@@ -75,11 +77,29 @@ async function searchForEvent(req, res, next)
     }
 }
 
+async function redirectLogin(req, res, next)
+{
+    
+    const userData = req.body.userData;
+    console.log("User data: ", userData);
+    const eventName = req.body.eventName;
+    const event = await model.addParticipant(eventName, userData);
+    console.log(event);
+    if(event != null)
+    {
+        res.redirect(`/events/${event.slug}`); // ne radi
+    }
+    else return new Error("Error: slug not found :: redirectLogin\n");
+}
+
+ // Treba povezati nalog sa eventom
+
 module.exports = {
     showEvent,
     getEventInfo,
     mainPage,
     searchForEvent,
     makeEvent,
-    showLogin
+    showLogin,
+    redirectLogin
 };

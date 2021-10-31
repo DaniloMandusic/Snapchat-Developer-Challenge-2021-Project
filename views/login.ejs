@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <body>
-    <div id="display_name">Welcome!</div>
-    <img id="bitmoji" />
-    <div id="external_id"></div>
-    <hr />
-    <form method="GET" action="/authorize">
-        <div id="my-login-button-target"></div>
-  </form>
+    <p id="results"></p>
+
+    <div id="my-login-button-target"></div>
+
     <script>
-
+      const resPar = document.querySelector("#results");
+     
       window.snapKitInit = function () {
-
-        var loginButtonIconId = "my-login-button-target";
         // Mount Login Button
-        var loginParams = {
-          handleAuthGrantFlowCallback: function handleAuthGrantFlowCallback() {
-            console.log("hello");
-          },
-          clientId : "92308228-fa84-4ab9-91b4-f025e380cd36"
-        };
+        snap.loginkit.mountButton("my-login-button-target", {
+          clientId: "92308228-fa84-4ab9-91b4-f025e380cd36",
+          redirectURI: "http://localhost:3000/login/",  // Zasto mora da ide na login (istu stranicu), inace ne salje informacije na /test (ne pozove se callback?)
+          scopeList: [  "https://auth.snapchat.com/oauth2/api/user.display_name",
+                        "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
+          ],
+          handleResponseCallback() {
+            snap.loginkit.fetchUserInfo().then(results => {
 
-        snap.loginkit.mountButton(loginButtonIconId, loginParams, acces_token);
+              resPar.innerHTML = JSON.stringify(results);
+              const eventName = localStorage.getItem("eventNameKey");
+              localStorage.removeItem("eventNameKey");
+
+              fetch("/test", {
+                  method: 'POST',
+                  mode: 'cors',
+                  cache: 'no-cache',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  redirect: 'follow',
+                  referrerPolicy: 'no-referrer',
+                  body: JSON.stringify({
+                    userData: results.data.me,
+                    eventName: eventName
+                  })
+                })
+                .then(res => console.log(`FETCH RESULT: ${res}`))
+                .catch(err => console.log(`FETCH ERROR: ${err}`));
+
+            }, err => console.log(err));
+          },
+        });
 
       };
-
+  
       // Load the SDK asynchronously
       (function (d, s, id) {
-        var js, sjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://sdk.snapkit.com/js/v1/login.js";
-        sjs.parentNode.insertBefore(js, sjs);
+      var js, sjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://sdk.snapkit.com/js/v1/login.js";
+      sjs.parentNode.insertBefore(js, sjs);
       })(document, "script", "loginkit-sdk");
     </script>
-
   </body>
-
 </html>
