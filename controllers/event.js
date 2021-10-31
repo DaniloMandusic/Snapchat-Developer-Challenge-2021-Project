@@ -84,7 +84,7 @@ async function searchForEvent(req, res, next)
 function redirectLogin(req, res, next)
 {
     console.log("Sad smo u redirectLogin i globalna ima vrednost: " + globalEventName);
-    const {userData} = req.body; // Isto kao userData = req.body.userData; samo bogougodnije
+    const userData = req.body.userData;
     console.log("User data: ", userData);
     res.render("mainPage.ejs");
 }
