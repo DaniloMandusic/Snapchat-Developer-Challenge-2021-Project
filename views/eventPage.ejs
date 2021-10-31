@@ -56,10 +56,11 @@
                             
                             <div class="card-body text-center">
                                 <form class="form-signin mt-3 mb-5" method="GET" action="/login">
-                                    <img class="mb-4 mt-2"
+                                    <!--<img class="mb-4 mt-2"
                                         src="/snap.jpg" alt="snap"
-                                        width="90%" height="90%">
+                                        width="90%" height="90%"> -->
 
+                                        <img src="/images/<%= eventImage %>" alt="slika" class="card-img">
                                     <!-- <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1> -->
                                     <div class="px-3">
                                         <!-- <label for="inputEmail" class="sr-only">Events name</label>
@@ -82,7 +83,7 @@
                                             <%= eventDescription %>
                                         </p>
 
-                                        <img src="/images/<%= eventImage %>" alt="slika" class="card-img">
+                                        <!-- <img src="/images/<%= eventImage %>" alt="slika" class="card-img">-->
                                         
                                         <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
                                         
