@@ -16,7 +16,7 @@
 
     <!-- The following are optional -->
 
-    <meta property="snap:sticker" content="http://letvice.skordisk.in.rs/images/snap.png" />
+    <meta property="snap:sticker" content="http://iskalcoolisi.me/snaplogo.png" />
 
     <meta property="snap:app_id" content="6f40af4f-a900-4ef4-8a0c-e0ca6318eb4b" />
     <meta property="snap:publisher_id" content="92308228-fa84-4ab9-91b4-f025e380cd36" />
@@ -59,10 +59,12 @@
                                     <img class="mb-4 mt-2"
                                         src="/snap.jpg" alt="snap"
                                         width="90%" height="90%">
+
                                     <!-- <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1> -->
                                     <div class="px-3">
                                         <!-- <label for="inputEmail" class="sr-only">Events name</label>
                                         <input type="email" id="inputEmail" class="form-control" placeholder="Events name" required autofocus> -->
+
                                         <h1 id="eventNameHeader" name="eventNameHeader">
                                              <%= eventName %>
                                            
@@ -70,7 +72,7 @@
                                         
                                         <br>
 
-                                        <p style="text-align: left; margin-left: 50px;">
+                                        <p style="text-align: center; margin-left: 50px;">
                                             <%= eventTime %>
                                         </p>
 
@@ -79,6 +81,7 @@
                                         <p>
                                             <%= eventDescription %>
                                         </p>
+
                                         <img src="/images/<%= eventImage %>" alt="slika" class="card-img">
                                         
                                         <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
@@ -94,7 +97,9 @@
                                         
                                         
                                         <p class="mt-5 mb-3 text-muted"></p>
-                                        <div class="snapchat-creative-kit-share"></div>
+                                        <div class="scCenter" style="margin-left: 36%;">
+                                            <div class="snapchat-creative-kit-share"></div>
+                                        </div>
                                     </div>
                                     
                                 </form>
