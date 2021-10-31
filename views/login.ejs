@@ -27,7 +27,7 @@
               localStorage.removeItem("eventNameKey");
               
               document.getElementById("eventName").value = eventName;
-              document.getElementById("backToPage").removeAttribute("hidden");
+              document.getElementById("backToPage").click();
               fetch("/test", {
                   method: 'POST',
                   mode: 'cors',
