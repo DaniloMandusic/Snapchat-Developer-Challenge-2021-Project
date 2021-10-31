@@ -18,12 +18,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage : storage });
 
 router.get('/', controller.mainPage);
-router.post('/event', controller.makeEvent);
-router.post('/add', upload.single('image') , controller.getEventInfo);
-router.post('/search', controller.searchForEvent);
 router.get('/events/:slug', controller.showEvent);
 router.get('/login', controller.showLogin);
 
+router.post('/event', controller.makeEvent);
+router.post('/add', upload.single('image') , controller.getEventInfo);
+router.post('/search', controller.searchForEvent);
 router.post("/test", controller.redirectLogin);
 
 

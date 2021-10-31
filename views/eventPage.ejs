@@ -83,6 +83,15 @@
                                         
                                         <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
                                         
+                                        <% if(eventParticipants.length != 0) {  %>
+                                            <ul>
+                                                <% for(let p of eventParticipants) { %>
+                                                    <li><%= p.displayName %></li>
+                                                <% } %>
+                                            </ul>
+                                        <% } %>
+                                        
+                                        
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="snapchat-creative-kit-share"></div>
                                     </div>

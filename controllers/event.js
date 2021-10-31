@@ -45,6 +45,7 @@ async function showEvent(req, res, next)
             eventTime: event.eventTime,
             eventDescription: event.eventDescription,
             eventImage : event.eventImage,
+            eventParticipants : event.participants
         });
     }
     catch(err)
@@ -76,18 +77,14 @@ async function searchForEvent(req, res, next)
     }
 }
 
-// Treba u ovoj funkciji nekako doci do jedne od sledece dve stvari:
-    // 1. Linka koji se dobije nakon sto se searchuje event (primer: localhost:3000/events/danilosparty, sto je zapravo localhost:3000/events/:slug)
-    // 2. Samog imena eventa (npr. danilosparty)
-
-
 async function redirectLogin(req, res, next)
 {
     
     const userData = req.body.userData;
     console.log("User data: ", userData);
-    const eventSlug = req.body.eventName;
-    const event = await model.findEventBySlug(eventSlug);
+    const eventName = req.body.eventName;
+    const event = await model.addParticipant(eventName, userData);
+    console.log(event);
     if(event != null)
     {
         res.redirect(`/events/${event.slug}`); // ne radi
