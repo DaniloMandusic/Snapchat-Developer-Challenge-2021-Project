@@ -11,7 +11,7 @@ function makeEvent(req,res,next)
 }
 
 function showLogin(req, res, next)
-{
+{   
     res.render("login.ejs");
 }
 
@@ -53,12 +53,11 @@ async function showEvent(req, res, next)
     }   
 }
 
-let globalEventName = "testGlobalna"; // Moze na mnogo bolji nacin - ako vise od jednog korisnika koristi sajt ovo ce izazvati sranje
+
 async function searchForEvent(req, res, next)
 {
     try
     {
-        globalEventName = req.body.search;
         const eventSlug = req.body.search; // nikolas party
         const event = await model.findEventBySlug(eventSlug); 
         if(event != null)
@@ -81,12 +80,19 @@ async function searchForEvent(req, res, next)
     // 1. Linka koji se dobije nakon sto se searchuje event (primer: localhost:3000/events/danilosparty, sto je zapravo localhost:3000/events/:slug)
     // 2. Samog imena eventa (npr. danilosparty)
 
-function redirectLogin(req, res, next)
+
+async function redirectLogin(req, res, next)
 {
-    console.log("Sad smo u redirectLogin i globalna ima vrednost: " + globalEventName);
+    
     const userData = req.body.userData;
     console.log("User data: ", userData);
-    res.render("mainPage.ejs");
+    const eventSlug = req.body.eventName;
+    const event = await model.findEventBySlug(eventSlug);
+    if(event != null)
+    {
+        res.redirect(`/events/${event.slug}`); // ne radi
+    }
+    else return new Error("Error: slug not found :: redirectLogin\n");
 }
 
  // Treba povezati nalog sa eventom
