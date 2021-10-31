@@ -71,7 +71,7 @@
             background: #0b7dda;
         }
 
-        div.scCenter .snapchat-creative-kit-share{
+        div.scCenter .snapchat-creative-kit-share {
             text-align: center;
         }
 
@@ -107,25 +107,29 @@
 
                                         <div class="input-group rounded">
 
-                                            <input type="search" id="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                            <input type="search" id="search" class="form-control rounded"
+                                                placeholder="Search" aria-label="Search" > <!--<input type="search"
+                                                name="search" class="form-control rounded" placeholder="Search"
+                                                aria-label="Search" -->
+                                            <button type="submit">
+                                                <svg viewBox="0 0 1024 1024">
+                                                    <path class="path1"
+                                                        d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                            <!-- <span class="input-group-text border-0" id="search-addon">
+                                                <i class="fas fa-search"></i>
+                                            </span> -->
+                                        </div>
 
-                                            <!--<input type="search" name="search"  class="form-control rounded" placeholder="Search" aria-label="Search"-->
-
-                                            aria-describedby="search-addon" />
-                                            <button type = "submit">
-                                                <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
-                                              </button>
-                                            <span class="input-group-text border-0" id="search-addon">
-                                              <i class="fas fa-search"></i>
-                                            </span>
-                                          </div>
-
-                                        <button id="host" class="btn btn-lg btn-dark btn-block mt-5" type="submit">Host an event!</button>
+                                        <button id="host" class="btn btn-lg btn-dark btn-block mt-5" type="submit">Host
+                                            an event!</button>
 
                                         <!--<button class="btn btn-lg btn-dark btn-block mt-5" formaction="/event" type="submit">Host an event!</button>-->
 
 
-                                       
+
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="scCenter" style="margin-left: 36%;">
                                             <div class="snapchat-creative-kit-share"></div>
@@ -167,25 +171,25 @@
 
                 sjs = d.getElementsByTagName(s)[0];
 
-        
-              if (d.getElementById(id)) return;
-        
-              js = d.createElement(s);
-        
-              js.id = id;
-        
-              js.src = "https://sdk.snapkit.com/js/v1/create.js";
-        
-              sjs.parentNode.insertBefore(js, sjs);
-        
-            })(document, "script", "snapkit-creative-kit-sdk");
-            
-            let hostBtn = document.getElementById("host");
-            hostBtn.addEventListener('click', () => {
-                console.log(document.getElementById("search").value);
-                console.log('click');
-            });
-        </script>
+
+            if (d.getElementById(id)) return;
+
+            js = d.createElement(s);
+
+            js.id = id;
+
+            js.src = "https://sdk.snapkit.com/js/v1/create.js";
+
+            sjs.parentNode.insertBefore(js, sjs);
+
+        })(document, "script", "snapkit-creative-kit-sdk");
+
+        let hostBtn = document.getElementById("host");
+        hostBtn.addEventListener('click', () => {
+            console.log(document.getElementById("search").value);
+            console.log('click');
+        });
+    </script>
 
 
 </body>
