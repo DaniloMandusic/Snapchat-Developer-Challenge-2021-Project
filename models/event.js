@@ -23,6 +23,10 @@ const eventSchema = new mongoose.Schema({
         type : String,
         required: true,
         unique : true
+    },
+    participants : {
+        type: [Object],
+        required: true 
     }
 }, {collection: "events"});
 
@@ -64,7 +68,26 @@ async function findEventBySlug(slug)
     return event;
 }
 
+async function addParticipant(eventName, userData)
+{
+    const eventSlug = slugify(eventName, {
+        lower: true,
+        strict : true
+    });
+    let event = await eventModel.findOneAndUpdate({slug: eventSlug}, {$addToSet: {participants: userData}});
+    return event;
+}
+
+// async function removeParticipant(eventName, userData); // $pull
+
+
+
+
+
+
+
 module.exports = {
     addEvent,
     findEventBySlug,
+    addParticipant
 }

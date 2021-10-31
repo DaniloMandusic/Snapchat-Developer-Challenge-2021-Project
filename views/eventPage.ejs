@@ -55,7 +55,7 @@
                         <div class="card mb-4 box-shadow round mt-3">
                             
                             <div class="card-body text-center">
-                                <form class="form-signin mt-3 mb-5">
+                                <form class="form-signin mt-3 mb-5" method="GET" action="/login">
                                     <img class="mb-4 mt-2"
                                         src="/snap.jpg" alt="snap"
                                         width="90%" height="90%">
@@ -63,10 +63,11 @@
                                     <div class="px-3">
                                         <!-- <label for="inputEmail" class="sr-only">Events name</label>
                                         <input type="email" id="inputEmail" class="form-control" placeholder="Events name" required autofocus> -->
-                                        <h1>
-                                            <%= eventName %>
+                                        <h1 id="eventNameHeader" name="eventNameHeader">
+                                             <%= eventName %>
+                                           
                                         </h1>
-
+                                        
                                         <br>
 
                                         <p style="text-align: left; margin-left: 50px;">
@@ -79,7 +80,19 @@
                                             <%= eventDescription %>
                                         </p>
                                         <img src="/images/<%= eventImage %>" alt="slika" class="card-img">
+                                        
                                         <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
+                                        
+                                        <% if(eventParticipants.length != 0) {  %>
+                                            <ul>
+                                                <% for(let p of eventParticipants) { %>
+                                                    <li><%= p.displayName %></li>
+                                                    <img src="<%= p.bitmoji.avatar %>"/>
+                                                <% } %>
+                                            </ul>
+                                        <% } %>
+                                        
+                                        
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="snapchat-creative-kit-share"></div>
                                     </div>
@@ -107,7 +120,11 @@
         crossorigin="anonymous"></script>
 
         <script>
-
+            const h1 = document.getElementById("eventNameHeader");
+            console.log(h1);
+            console.log("Local storage length: " + localStorage.length);
+            console.log(localStorage);
+            localStorage.setItem("eventNameKey", h1.innerText);            
             // Load the SDK asynchronously
         
             (function (d, s, id) {

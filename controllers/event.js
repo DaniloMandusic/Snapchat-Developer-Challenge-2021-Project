@@ -1,7 +1,4 @@
 const model = require('../models/event');
-const cryptoLib = require('../crypto');
-const uriMaker = require('../uriMaker');
-const request = require('request');
 
 function mainPage(req,res,next)
 {
@@ -14,7 +11,7 @@ function makeEvent(req,res,next)
 }
 
 function showLogin(req, res, next)
-{
+{   
     res.render("login.ejs");
 }
 
@@ -48,6 +45,7 @@ async function showEvent(req, res, next)
             eventTime: event.eventTime,
             eventDescription: event.eventDescription,
             eventImage : event.eventImage,
+            eventParticipants : event.participants
         });
     }
     catch(err)
@@ -56,12 +54,14 @@ async function showEvent(req, res, next)
     }   
 }
 
+
 async function searchForEvent(req, res, next)
 {
     try
     {
-        const eventSlug = req.body.search;
-        const event = await model.findEventBySlug(eventSlug);
+        const eventSlug = req.body.search; // nikolas party
+        console.log("from search " + eventSlug);
+        const event = await model.findEventBySlug(eventSlug); 
         if(event != null)
         {
             res.redirect(`/events/${event.slug}`)
@@ -78,111 +78,21 @@ async function searchForEvent(req, res, next)
     }
 }
 
-var clientId = "92308228-fa84-4ab9-91b4-f025e380cd36";
-
-var clientSecret = "GvuesZ9ZagFc0h_ID_1E8J8BKUu41BCVN2gLLglHkM0";
-
-var redirectUri = "http://localhost:3000/login/";
-
-var scopeList = [ 
-    "https://auth.snapchat.com/oauth2/api/user.display_name",
-    "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
-];
-
-function authorize(req, res, next)
-{
-// Generate query parameters
-
-var state = cryptoLib.generateClientState();
-
-
-// Build redirect URL
-
-var getRedirectURL = uriMakera.getAuthCodeRedirectURL(
-
-  clientId,
-
-  redirectUri,
-
-  scopeList,
-
-  state
-
-);
-
-
-// Redirect user to get consent
-
-res.redirect(getRedirectURL);
+async function redirectLogin(req, res, next)
+{   
+    const userData = req.body.userData;
+    //console.log("User data: ", userData);
+    const eventName = req.body.eventName;
+    const event = await model.addParticipant(eventName, userData);
+    //console.log(event);
+    if(event != null)
+    {
+        res.redirect(`/events/${event.slug}`); // ne radi
+    }
+    else return new Error("Error: slug not found :: redirectLogin\n");
 }
 
-function accesTokenHandler(req, res ,next)
-{
-    var SNAPCHAT_AUTH_ENDPOINT =
-
-    "https://accounts.snapchat.com/accounts/oauth2/token";
-
-  var auth_code = "received-auth-code-xyz";
-
-
-  var authorizationHeader = clientId + ":" + clientSecret;
-
-  var authorizationHeaderBase64 = Buffer.from(authorizationHeader).toString(
-
-    "base64"
-
-  );
-
-
-  // Set headers
-
-  var headers = {
-
-    "Content-Type": "application/x-www-form-urlencoded",
-
-    Authorization: "Basic " + authorizationHeaderBase64,
-
-  };
-
-
-  // Configure access token POST request
-
-  var options = {
-
-    url: SNAPCHAT_AUTH_ENDPOINT,
-
-    method: "POST",
-
-    headers: headers,
-
-    form: {
-
-      grant_type: "authorization_code",
-
-      code: auth_code,
-
-      redirect_uri: redirectUri,
-
-      client_id: clientId,
-
-    },
-
-  };
-
-
-  // Start POST request
-
-  request(options, function (error, response, body) {
-
-    // Handle success and  error responses here
-    console.log("response " + response);
-    console.log("body : " + body);
-    // Make sure to persist access_token, refresh_token, and expires_in
-
-    res.send(response);
-
-  });
-}
+ // Treba povezati nalog sa eventom
 
 module.exports = {
     showEvent,
@@ -191,5 +101,5 @@ module.exports = {
     searchForEvent,
     makeEvent,
     showLogin,
-    authorize
+    redirectLogin
 };
