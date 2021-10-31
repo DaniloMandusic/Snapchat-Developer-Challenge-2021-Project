@@ -9,38 +9,19 @@ function makeEvent(req,res,next)
 {
     res.render("makeEvent.ejs");
 }
+
+function showLogin(req, res, next)
+{   
+    res.render("login.ejs");
+}
+
+
 async function getEventInfo(req, res, next)
 {
     try{
     const postEventName = req.body.inputEventName;
-    let postEventStartTime = req.body.inputEventStartTime;
-    let postEventEndTime = req.body.inputEventEndTime; // 2021-10-11T03:01
-    let postEventTime = "";
+    const postEventTime = req.body.eventTime;
     
-    // Date validation shenaningas ///////////////////////////////////////////////////////////////
-    let startDatetime = new Date(postEventStartTime);
-    let endDatetime = new Date(postEventEndTime);
-    startDatetime.setSeconds(0, 0); // Seconds and milliseconds are irrelevant for comparison
-    endDatetime.setSeconds(0, 0);
-    const startDate = startDatetime.toLocaleDateString('de-DE');
-    const startTime = startDatetime.toLocaleTimeString(['de-DE'], {hour: '2-digit', minute:'2-digit'});
-    const endDate = endDatetime.toLocaleDateString('de-DE');
-    const endTime = endDatetime.toLocaleTimeString(['de-DE'], {hour: '2-digit', minute:'2-digit'}); 
-    
-    if(Date.parse(startDatetime.toLocaleDateString()) > Date.parse((endDatetime.toLocaleDateString()))) // Comparison in US format
-    {
-        postEventTime = "Error: start date > end date.";
-    }
-    else if(startTime > endTime)
-    {
-        postEventTime = "Error: start time > end time."
-    }
-    else if(Date.parse(startDatetime.toLocaleDateString()) == Date.parse((endDatetime.toLocaleDateString())))
-    {
-        postEventTime = `Event duration: ${startTime}h   -   ${endTime}h, ${startDate}`;
-    }
-    else postEventTime = `Event duration: ${startDate}, ${startTime}h   -    ${endTime}h, ${endDate}`;
-    //////////////////////////////////////////////////////////////////////////////////////////////////
     const postEventDescription = req.body.inputEventDescription;
     const postEventImage = req.file.filename;
 
@@ -64,6 +45,7 @@ async function showEvent(req, res, next)
             eventTime: event.eventTime,
             eventDescription: event.eventDescription,
             eventImage : event.eventImage,
+            eventParticipants : event.participants
         });
     }
     catch(err)
@@ -72,12 +54,14 @@ async function showEvent(req, res, next)
     }   
 }
 
+
 async function searchForEvent(req, res, next)
 {
     try
     {
-        const eventSlug = req.body.search;
-        const event = await model.findEventBySlug(eventSlug);
+        const eventSlug = req.body.search; // nikolas party
+        console.log("from search " + eventSlug);
+        const event = await model.findEventBySlug(eventSlug); 
         if(event != null)
         {
             res.redirect(`/events/${event.slug}`)
@@ -94,10 +78,28 @@ async function searchForEvent(req, res, next)
     }
 }
 
+async function redirectLogin(req, res, next)
+{   
+    const userData = req.body.userData;
+    //console.log("User data: ", userData);
+    const eventName = req.body.eventName;
+    const event = await model.addParticipant(eventName, userData);
+    //console.log(event);
+    if(event != null)
+    {
+        res.redirect(`/events/${event.slug}`); // ne radi
+    }
+    else return new Error("Error: slug not found :: redirectLogin\n");
+}
+
+ // Treba povezati nalog sa eventom
+
 module.exports = {
     showEvent,
     getEventInfo,
     mainPage,
     searchForEvent,
     makeEvent,
+    showLogin,
+    redirectLogin
 };

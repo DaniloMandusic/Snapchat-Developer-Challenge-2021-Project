@@ -16,13 +16,14 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(express.urlencoded({extended: false}));
+app.use(express.json()); // Json parser
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', eventRoutes);
 
 
 app.use(function (req, res, next) {
-    const err = new Error('Pokušali ste da učitate stranicu koja ne postoji: ' + req.url);
+    const err = new Error('Page doesn\'t exist: ' + req.url);
     err.status = 404;
 
     next(err);
