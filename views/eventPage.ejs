@@ -87,6 +87,7 @@
                                             <ul>
                                                 <% for(let p of eventParticipants) { %>
                                                     <li><%= p.displayName %></li>
+                                                    <img src="<%= p.bitmoji.avatar %>"/>
                                                 <% } %>
                                             </ul>
                                         <% } %>

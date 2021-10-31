@@ -5,9 +5,12 @@
 
     <div id="my-login-button-target"></div>
 
+    <form method="POST" action="/search">
+      <input  id="eventName" type="text" name="search" hidden="hidden">
+      <input id="backToPage" type="submit" hidden="hidden" value="Back To Event">
+    </form>
     <script>
       const resPar = document.querySelector("#results");
-     
       window.snapKitInit = function () {
         // Mount Login Button
         snap.loginkit.mountButton("my-login-button-target", {
@@ -22,7 +25,9 @@
               resPar.innerHTML = JSON.stringify(results);
               const eventName = localStorage.getItem("eventNameKey");
               localStorage.removeItem("eventNameKey");
-
+              
+              document.getElementById("eventName").value = eventName;
+              document.getElementById("backToPage").removeAttribute("hidden");
               fetch("/test", {
                   method: 'POST',
                   mode: 'cors',

@@ -60,6 +60,7 @@ async function searchForEvent(req, res, next)
     try
     {
         const eventSlug = req.body.search; // nikolas party
+        console.log("from search " + eventSlug);
         const event = await model.findEventBySlug(eventSlug); 
         if(event != null)
         {
@@ -78,13 +79,12 @@ async function searchForEvent(req, res, next)
 }
 
 async function redirectLogin(req, res, next)
-{
-    
+{   
     const userData = req.body.userData;
-    console.log("User data: ", userData);
+    //console.log("User data: ", userData);
     const eventName = req.body.eventName;
     const event = await model.addParticipant(eventName, userData);
-    console.log(event);
+    //console.log(event);
     if(event != null)
     {
         res.redirect(`/events/${event.slug}`); // ne radi
