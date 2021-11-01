@@ -37,6 +37,46 @@
         .round{
             border-radius:10px;
         }
+        
+
+        #test {
+            float:right;
+            background-color: white;
+        }
+
+        ul {
+            padding: 0;
+            margin-top: 15px;
+            background-color: white;
+            width: 500px;
+            height: 500px;
+
+        } 
+
+        ul li {
+            list-style: none;
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        ul li img {
+            height: 45px;
+	        width: 45px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        ul li span {
+            position: absolute; 
+            display: inline-block; 
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(49,69,106,0.9);
+            padding-left: 18px;
+            padding-top: 8px;
+        }
+
 
     </style>
 
@@ -83,17 +123,7 @@
                                         </p>
                                         
                                         <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
-                                        
-                                        <% if(eventParticipants.length != 0) {  %>
-                                            <ul>
-                                                <% for(let p of eventParticipants) { %>
-                                                    <li><%= p.displayName %></li>
-                                                    <img src="<%= p.bitmoji.avatar %>"/>
-                                                <% } %>
-                                            </ul>
-                                        <% } %>
-                                        
-                                        
+                                    
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="scCenter" style="margin-left: 36%;">
                                             <div class="snapchat-creative-kit-share"></div>
@@ -105,6 +135,21 @@
                             </div>
                         </div>
                     </div>
+                    <% if(eventParticipants.length != 0) {  %>
+                    <div id="Test">
+                        <p>Participants</p>
+                        <ul >
+                            <% for(let p of eventParticipants) { %>
+                                <li>
+                                    <div>
+                                        <img src="<%= p.bitmoji.avatar %>"/>
+                                        <span><%= p.displayName %></span>
+                                    </div>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <% } %>
                 </div>
                 <div class="col-md-2">
 
