@@ -15,7 +15,7 @@
         // Mount Login Button
         snap.loginkit.mountButton("my-login-button-target", {
           clientId: "92308228-fa84-4ab9-91b4-f025e380cd36",
-          redirectURI: "http://localhost:3000/login/",  // Zasto mora da ide na login (istu stranicu), inace ne salje informacije na /test (ne pozove se callback?)
+          redirectURI: "http://localhost:3000/login/", 
           scopeList: [  "https://auth.snapchat.com/oauth2/api/user.display_name",
                         "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
           ],
@@ -27,7 +27,7 @@
               localStorage.removeItem("eventNameKey");
               
               document.getElementById("eventName").value = eventName;
-              document.getElementById("backToPage").removeAttribute("hidden");
+              document.getElementById("backToPage").click();
               fetch("/test", {
                   method: 'POST',
                   mode: 'cors',

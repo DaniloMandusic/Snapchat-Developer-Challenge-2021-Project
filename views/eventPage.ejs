@@ -37,6 +37,46 @@
         .round{
             border-radius:10px;
         }
+        
+
+        #test {
+            float:right;
+            background-color: white;
+        }
+
+        ul {
+            padding: 0;
+            margin-top: 15px;
+            background-color: white;
+            width: 500px;
+            height: 500px;
+
+        } 
+
+        ul li {
+            list-style: none;
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        ul li img {
+            height: 45px;
+	        width: 45px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        ul li span {
+            position: absolute; 
+            display: inline-block; 
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(49,69,106,0.9);
+            padding-left: 18px;
+            padding-top: 8px;
+        }
+
 
     </style>
 
@@ -56,23 +96,22 @@
                             
                             <div class="card-body text-center">
                                 <form class="form-signin mt-3 mb-5" method="GET" action="/login">
-                                    <!--<img class="mb-4 mt-2"
+                                    <!-- <img class="mb-4 mt-2"
                                         src="/snap.jpg" alt="snap"
                                         width="90%" height="90%"> -->
-
-                                        <img src="/images/<%= eventImage %>" alt="slika" class="card-img">
                                     <!-- <h1 class="h3 mb-3 font-weight-normal">Search for an event</h1> -->
                                     <div class="px-3">
                                         <!-- <label for="inputEmail" class="sr-only">Events name</label>
                                         <input type="email" id="inputEmail" class="form-control" placeholder="Events name" required autofocus> -->
-
                                         <h1 id="eventNameHeader" name="eventNameHeader">
                                              <%= eventName %>
                                            
                                         </h1>
                                         
-                                        <br>
+                                        <img src="/images/<%= eventImage %>" alt="slika" class="card-img">
 
+                                        <br>
+                                        
                                         <p style="text-align: center; margin-left: 50px;">
                                             <%= eventTime %>
                                         </p>
@@ -82,21 +121,9 @@
                                         <p>
                                             <%= eventDescription %>
                                         </p>
-
-                                        <!-- <img src="/images/<%= eventImage %>" alt="slika" class="card-img">-->
                                         
                                         <button class="btn btn-lg btn-dark mt-5" style="margin-left: 100px; margin-right: 100px;" type="submit">I'm coming!</button>
-                                        
-                                        <% if(eventParticipants.length != 0) {  %>
-                                            <ul>
-                                                <% for(let p of eventParticipants) { %>
-                                                    <li><%= p.displayName %></li>
-                                                    <img src="<%= p.bitmoji.avatar %>"/>
-                                                <% } %>
-                                            </ul>
-                                        <% } %>
-                                        
-                                        
+                                    
                                         <p class="mt-5 mb-3 text-muted"></p>
                                         <div class="scCenter" style="margin-left: 36%;">
                                             <div class="snapchat-creative-kit-share"></div>
@@ -108,6 +135,21 @@
                             </div>
                         </div>
                     </div>
+                    <% if(eventParticipants.length != 0) {  %>
+                    <div id="Test">
+                        <p>Participants</p>
+                        <ul >
+                            <% for(let p of eventParticipants) { %>
+                                <li>
+                                    <div>
+                                        <img src="<%= p.bitmoji.avatar %>"/>
+                                        <span><%= p.displayName %></span>
+                                    </div>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <% } %>
                 </div>
                 <div class="col-md-2">
 
@@ -127,9 +169,6 @@
 
         <script>
             const h1 = document.getElementById("eventNameHeader");
-            console.log(h1);
-            console.log("Local storage length: " + localStorage.length);
-            console.log(localStorage);
             localStorage.setItem("eventNameKey", h1.innerText);            
             // Load the SDK asynchronously
         
