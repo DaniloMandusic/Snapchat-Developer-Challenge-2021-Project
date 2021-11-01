@@ -2,7 +2,9 @@ const model = require('../models/event');
 
 function mainPage(req,res,next)
 {
-    res.render('mainPage.ejs');
+    res.render('mainPage.ejs', {
+        errorMessage : ""
+    });
 }
 
 function makeEvent(req,res,next)
@@ -67,7 +69,9 @@ async function searchForEvent(req, res, next)
         }
         else
         {
-            res.render("makeEvent.ejs");
+            res.render( 'mainPage.ejs', {
+                errorMessage: "Event does not exist"
+            });
         }
         
     }

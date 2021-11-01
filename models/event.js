@@ -53,7 +53,7 @@ const eventModel = mongoose.model("Event", eventSchema);
     newEvent.eventTime = postEventTime;
     newEvent.eventDescription = postEventDescription;
     newEvent.eventImage = postEventImage;
-    // Fali drugo vreme/datum i slika ovde
+    
     let eventFromDB = await newEvent.save();
     return eventFromDB;
 }

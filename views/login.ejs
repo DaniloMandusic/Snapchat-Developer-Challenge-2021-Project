@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <p id="results"></p>
 
     <div id="my-login-button-target"></div>
 
@@ -22,7 +21,6 @@
           handleResponseCallback() {
             snap.loginkit.fetchUserInfo().then(results => {
 
-              resPar.innerHTML = JSON.stringify(results);
               const eventName = localStorage.getItem("eventNameKey");
               localStorage.removeItem("eventNameKey");
               

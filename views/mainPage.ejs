@@ -80,6 +80,10 @@
             clear: both;
             display: table;
         }
+
+        #errorMessage {
+            color:red;
+        }
     </style>
 
 </head>
@@ -108,12 +112,13 @@
                                             <!-- <input type="search" name="search" class="form-control rounded"
                                                 placeholder="Search" aria-label="Search"
                                                 aria-describedby="search-addon" /> -->
-                                            <!--OVDE TI JE ONA LUPA -->
                                             <form class="example" action="/action_page.php" style="width: 90%;">
                                                 <input type="text" name="search" placeholder="Search.." name="search2">
                                                 <button type="submit"><i class="fa fa-search"></i></button>
                                               </form>
-                                            <!--znaci ovo iznad -->
+                                            <% if(errorMessage != undefined) {%>
+                                                <label id="errorMessage" for="search"> <%= errorMessage %> </label>
+                                            <% } %>
                                         </div>
                                         <button class="btn btn-lg btn-dark btn-block mt-5" formaction="/event"
                                             type="submit" style="width: 90%;">Host an event!</button>
