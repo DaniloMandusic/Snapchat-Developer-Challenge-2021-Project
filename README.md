@@ -3,8 +3,6 @@
 ## About
 Snap Events is web app extension for Snapchat, integrated with SnapKit, allowing users to organize events, parties and conferences.
 
-Link to website: https://iskalcoolisi.me
-
 Youtube demo video link: https://www.youtube.com/watch?v=uGu65RtVRNo
 
 ## Image Gallery
